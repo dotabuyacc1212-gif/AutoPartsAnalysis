@@ -11,11 +11,6 @@ build/
 dist/
 *.egg-info/
 
-# Data files
-*.xlsx
-*.xls
-*.csv
-
 # IDE
 .vscode/
 .idea/
