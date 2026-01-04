@@ -7,6 +7,10 @@
 [![Pandas](https://img.shields.io/badge/Pandas-2.3%2B-150458?logo=pandas)](https://pandas.pydata.org)
 [![Plotly](https://img.shields.io/badge/Plotly-6.3%2B-2962FF?logo=plotly)](https://plotly.com/python/)
 
+## 🚀 Live Demo
+
+**[Открыть приложение](https://tv-sponsorship-cost-factors-lr6r326w4qmqujuggabwdm.streamlit.app/)**
+
 ## Описание
 
 Дашборд для анализа факторов, влияющих на стоимость спонсорской рекламы на российском телевидении. Анализирует зависимости между каналом, временем показа, рейтингом программы, длительностью ролика и итоговой стоимостью.
