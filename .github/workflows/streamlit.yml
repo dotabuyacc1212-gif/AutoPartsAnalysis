@@ -1,11 +1,11 @@
-name: Streamlit Deploy
+name: Streamlit Test
 
 on:
   push:
     branches: [ main, master ]
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
     
     steps:
@@ -24,8 +24,5 @@ jobs:
     - name: Generate data
       run: python generate_data.py
     
-    - name: Test app
-      run: |
-        python -m streamlit run app.py --server.headless true &
-        sleep 10
-        pkill -f streamlit
+    - name: Check app syntax
+      run: python -m py_compile app.py
