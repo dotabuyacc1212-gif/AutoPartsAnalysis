@@ -11,21 +11,12 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🚗 Auto Parts Analysis Dashboard")
-st.markdown("Interactive analysis of automotive parts inventory and pricing")
-
-# Load data
-@st.cache_data
-def load_data():
-    data_file = Path("auto_parts_data.xlsx")
-    if not data_file.exists():
-        st.info("Generating sample data...")
-        generate_sample_data()
-    return pd.read_excel(data_file)
-
+# Generate data if not exists (before any Streamlit commands)
 def generate_sample_data():
     """Generate sample auto parts data"""
-    import random
+    data_file = Path("auto_parts_data.xlsx")
+    if data_file.exists():
+        return
     
     NUM_PARTS = 500
     
@@ -83,6 +74,21 @@ def generate_sample_data():
     
     df = pd.DataFrame(data)
     df.to_excel("auto_parts_data.xlsx", index=False, sheet_name="Auto Parts")
+
+# Generate data before loading
+generate_sample_data()
+
+st.title("🚗 Auto Parts Analysis Dashboard")
+st.markdown("Interactive analysis of automotive parts inventory and pricing")
+
+# Load data
+@st.cache_data
+def load_data():
+    data_file = Path("auto_parts_data.xlsx")
+    if not data_file.exists():
+        st.error("Data file not found!")
+        st.stop()
+    return pd.read_excel(data_file)
 
 df = load_data()
 
