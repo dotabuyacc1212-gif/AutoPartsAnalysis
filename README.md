@@ -1,80 +1,73 @@
-# 📺 Анализ стоимости спонсорской рекламы на телевидении
+# Auto Parts Analysis 🚗🔧
 
-Интерактивный дашборд для анализа факторов, формирующих стоимость рекламы на ТВ.
+Interactive web application for analyzing automotive parts data, built with Streamlit.
 
-[![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python)](https://python.org)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.50%2B-FF4B4B?logo=streamlit)](https://streamlit.io)
-[![Pandas](https://img.shields.io/badge/Pandas-2.3%2B-150458?logo=pandas)](https://pandas.pydata.org)
-[![Plotly](https://img.shields.io/badge/Plotly-6.3%2B-2962FF?logo=plotly)](https://plotly.com/python/)
+[Русская версия](README_RU.md)
 
-## 🚀 Live Demo
+## Features
 
-**[Открыть приложение](https://tv-sponsorship-cost-factors-lr6r326w4qmqujuggabwdm.streamlit.app/)**
+- 📊 Interactive data visualization of auto parts inventory
+- 🔍 Search and filter parts by category, manufacturer, and price
+- 📈 Statistical analysis of pricing trends
+- 💾 Export filtered results to Excel
+- 🎨 Modern and responsive UI
 
-## Описание
+## Quick Start
 
-Дашборд для анализа факторов, влияющих на стоимость спонсорской рекламы на российском телевидении. Анализирует зависимости между каналом, временем показа, рейтингом программы, длительностью ролика и итоговой стоимостью.
-
-**Возможности:**
-- 5000 записей синтетических данных о рекламных контрактах
-- 5 вкладок с разными форматами таблиц
-- 7 интерактивных графиков
-- Фильтры по датам, каналам, временным слотам, типам программ
-- Экспорт в Excel
-
-## Быстрый старт
+### Local Installation
 
 ```bash
-# Установка зависимостей
+# Clone the repository
+git clone https://github.com/yourusername/auto-parts-analysis.git
+cd auto-parts-analysis
+
+# Install dependencies
 pip install -r requirements.txt
 
-# Генерация данных
+# Generate sample data
 python generate_data.py
 
-# Запуск приложения
+# Run the application
 streamlit run app.py
 ```
 
-Откройте браузер: `http://localhost:8501`
-
-## Docker
+### Docker
 
 ```bash
-docker build -t tv-ad-dashboard .
-docker run -p 8501:8501 tv-ad-dashboard
+# Build the image
+docker build -t auto-parts-analysis .
+
+# Run the container
+docker run -p 8501:8501 auto-parts-analysis
 ```
 
-## Анализируемые факторы
+Open your browser at `http://localhost:8501`
 
-1. **Временной слот** - Утро, День, Прайм-тайм, Ночь
-2. **Телеканал** - 8 российских каналов
-3. **Рейтинг программы** - 1.0 до 15.0
-4. **Длительность ролика** - 10-60 секунд
-5. **Тип программы** - Новости, Сериал, Шоу, Спорт и др.
-6. **Охват аудитории** - тысяч зрителей
-7. **Тип рекламодателя** - FMCG, Автомобили, Финансы и др.
-8. **Сезонность** - влияние месяца
-9. **CPT** - стоимость за тысячу зрителей
-
-## Структурка
+## Project Structure
 
 ```
-├── app.py                      # Streamlit приложение
-├── generate_data.py            # Генератор данных
-├── requirements.txt            # Зависимости
-├── tv_advertising_data.xlsx    # Данные
-├── Dockerfile                  # Docker конфигурация
-└── README.md                   # Документация
+.
+├── app.py                  # Main Streamlit application
+├── generate_data.py        # Sample data generator
+├── auto_parts_data.xlsx    # Generated data file
+├── requirements.txt        # Python dependencies
+├── Dockerfile             # Docker configuration
+└── .streamlit/
+    └── config.toml        # Streamlit settings
 ```
 
-## Технологии
+## Technologies
 
-- Python 3.9+
-- Streamlit 1.50.0
-- Pandas 2.1.4
-- Plotly 6.3.1
-- NumPy 1.23.0+
+- **Python 3.11+**
+- **Streamlit** - Web interface
+- **Pandas** - Data manipulation
+- **Plotly** - Interactive charts
+- **OpenPyXL** - Excel file handling
 
-## Лицензия
+## License
 
-MIT License
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.

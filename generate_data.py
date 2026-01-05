@@ -1,98 +1,78 @@
 import pandas as pd
-import numpy as np
-from datetime import datetime, timedelta
 import random
+from datetime import datetime, timedelta
 
-# Функция для генерации данных о спонсорской рекламе на ТВ
-def generate_tv_advertising_data(num_records=5000):
-    data = []
-    start_date = datetime(2023, 1, 1)
+# Configuration
+NUM_PARTS = 500
+
+# Data lists
+categories = [
+    "Engine Parts", "Brake System", "Suspension", "Electrical",
+    "Transmission", "Exhaust System", "Cooling System", "Fuel System"
+]
+
+manufacturers = [
+    "Bosch", "Denso", "Continental", "Delphi", "Valeo",
+    "Mahle", "NGK", "Brembo", "ZF", "Hella"
+]
+
+part_names = {
+    "Engine Parts": ["Piston", "Cylinder Head", "Camshaft", "Crankshaft", "Oil Pump"],
+    "Brake System": ["Brake Pad", "Brake Disc", "Brake Caliper", "Master Cylinder"],
+    "Suspension": ["Shock Absorber", "Coil Spring", "Control Arm", "Ball Joint"],
+    "Electrical": ["Alternator", "Starter Motor", "Battery", "Spark Plug"],
+    "Transmission": ["Clutch Kit", "Gearbox", "Drive Shaft", "CV Joint"],
+    "Exhaust System": ["Muffler", "Catalytic Converter", "Exhaust Manifold"],
+    "Cooling System": ["Radiator", "Water Pump", "Thermostat", "Cooling Fan"],
+    "Fuel System": ["Fuel Pump", "Fuel Injector", "Fuel Filter", "Throttle Body"]
+}
+
+# Generate data
+data = []
+for i in range(NUM_PARTS):
+    category = random.choice(categories)
+    part_name = random.choice(part_names[category])
+    manufacturer = random.choice(manufacturers)
     
-    # Справочники
-    channels = ['Первый канал', 'Россия 1', 'НТВ', 'ТНТ', 'СТС', 'Пятый канал', 'Рен ТВ', 'Матч ТВ']
-    program_types = ['Новости', 'Сериал', 'Развлекательное шоу', 'Спортивная передача', 
-                     'Документальный фильм', 'Ток-шоу', 'Кино', 'Утреннее шоу']
-    time_slots = ['Утро (06:00-09:00)', 'День (09:00-18:00)', 'Прайм-тайм (18:00-23:00)', 'Ночь (23:00-06:00)']
-    advertiser_types = ['FMCG', 'Автомобили', 'Финансы', 'Телекоммуникации', 'Ритейл', 'Фармацевтика', 'Технологии']
-    ad_durations = [10, 15, 20, 30, 45, 60]  # секунды
+    # Price based on category
+    base_prices = {
+        "Engine Parts": (150, 800),
+        "Brake System": (50, 400),
+        "Suspension": (80, 500),
+        "Electrical": (40, 350),
+        "Transmission": (200, 1200),
+        "Exhaust System": (100, 600),
+        "Cooling System": (60, 400),
+        "Fuel System": (70, 450)
+    }
     
-    for i in range(num_records):
-        date = start_date + timedelta(days=random.randint(0, 365))
-        channel = random.choice(channels)
-        program_type = random.choice(program_types)
-        time_slot = random.choice(time_slots)
-        advertiser_type = random.choice(advertiser_types)
-        duration = random.choice(ad_durations)
-        
-        # Базовая стоимость зависит от времени
-        base_cost = {
-            'Утро (06:00-09:00)': 50000,
-            'День (09:00-18:00)': 80000,
-            'Прайм-тайм (18:00-23:00)': 200000,
-            'Ночь (23:00-06:00)': 30000
-        }[time_slot]
-        
-        # Коэффициенты для каналов
-        channel_multiplier = {
-            'Первый канал': 1.5,
-            'Россия 1': 1.4,
-            'НТВ': 1.3,
-            'ТНТ': 1.1,
-            'СТС': 1.0,
-            'Пятый канал': 0.8,
-            'Рен ТВ': 0.9,
-            'Матч ТВ': 1.2
-        }[channel]
-        
-        # Рейтинг программы (влияет на стоимость)
-        rating = round(random.uniform(1.0, 15.0), 2)
-        
-        # Охват аудитории (тысяч человек)
-        audience_reach = int(rating * random.randint(50000, 200000) / 10)
-        
-        # Расчет стоимости
-        cost = int(base_cost * channel_multiplier * (duration / 30) * (1 + rating / 10) * random.uniform(0.9, 1.1))
-        
-        # CPT (Cost Per Thousand) - стоимость за тысячу зрителей
-        cpt = round(cost / (audience_reach / 1000), 2) if audience_reach > 0 else 0
-        
-        # День недели
-        weekday = date.strftime('%A')
-        is_weekend = weekday in ['Saturday', 'Sunday']
-        
-        # Сезонность (выше в праздничные месяцы)
-        month = date.month
-        seasonal_factor = 1.2 if month in [11, 12, 1] else 1.0
-        cost = int(cost * seasonal_factor)
-        
-        data.append({
-            'Дата': date.date(),
-            'Канал': channel,
-            'Тип_программы': program_type,
-            'Временной_слот': time_slot,
-            'Длительность_сек': duration,
-            'Рейтинг': rating,
-            'Охват_аудитории_тыс': audience_reach,
-            'Тип_рекламодателя': advertiser_type,
-            'Стоимость_руб': cost,
-            'CPT_руб': cpt,
-            'День_недели': weekday,
-            'Выходной': is_weekend,
-            'Месяц': month
-        })
+    price_range = base_prices[category]
+    price = round(random.uniform(price_range[0], price_range[1]), 2)
     
-    return pd.DataFrame(data)
+    stock = random.randint(0, 100)
+    part_number = f"{manufacturer[:3].upper()}-{random.randint(1000, 9999)}"
+    
+    data.append({
+        "Part Number": part_number,
+        "Part Name": part_name,
+        "Category": category,
+        "Manufacturer": manufacturer,
+        "Price": price,
+        "Stock": stock,
+        "Status": "In Stock" if stock > 10 else "Low Stock" if stock > 0 else "Out of Stock"
+    })
 
-# Генерация данных
-print("Генерация данных о спонсорской рекламе на ТВ...")
-df = generate_tv_advertising_data(num_records=5000)
+# Create DataFrame
+df = pd.DataFrame(data)
 
-# Сохранение в XLSX
-df.to_excel('tv_advertising_data.xlsx', index=False)
+# Save to Excel
+output_file = "auto_parts_data.xlsx"
+df.to_excel(output_file, index=False, sheet_name="Auto Parts")
 
-print(f"Данные сохранены в tv_advertising_data.xlsx")
-print(f"Всего записей: {len(df)}")
-print(f"\nПример данных:")
-print(df.head())
-print(f"\nСтатистика по стоимости:")
-print(df['Стоимость_руб'].describe())
+print(f"✅ Generated {NUM_PARTS} auto parts records")
+print(f"📁 Saved to: {output_file}")
+print(f"\n📊 Summary:")
+print(f"  - Categories: {df['Category'].nunique()}")
+print(f"  - Manufacturers: {df['Manufacturer'].nunique()}")
+print(f"  - Price range: ${df['Price'].min():.2f} - ${df['Price'].max():.2f}")
+print(f"  - Average price: ${df['Price'].mean():.2f}")
