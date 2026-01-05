@@ -2,7 +2,8 @@
 
 Интерактивное веб-приложение для анализа данных об автомобильных запчастях, созданное с помощью Streamlit.
 
-🌐 **Демо:** [https://autopartsanalysis.streamlit.app/](https://autopartsanalysis.streamlit.app/)
+🌐 **Демо:** [https://autopartsanalysis.streamlit.app/](https://autopartsanalysis.streamlit.app/)  
+🐳 **Docker Hub:** [matveivehbe/auto-parts-analysis](https://hub.docker.com/r/matveivehbe/auto-parts-analysis)
 
 [English version](README.md)
 
@@ -34,6 +35,16 @@ streamlit run app.py
 ```
 
 ### Docker
+
+```bash
+# Скачайте с Docker Hub
+docker pull matveivehbe/auto-parts-analysis:latest
+
+# Запустите контейнер
+docker run -p 8501:8501 matveivehbe/auto-parts-analysis:latest
+```
+
+Или соберите локально:
 
 ```bash
 # Соберите образ
