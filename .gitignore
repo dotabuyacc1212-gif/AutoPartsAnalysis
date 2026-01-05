@@ -37,9 +37,5 @@ env/
 .DS_Store
 Thumbs.db
 
-# Data files (optional - uncomment if you don't want to track data)
-# *.xlsx
-# *.csv
-
 # Streamlit
 .streamlit/secrets.toml
