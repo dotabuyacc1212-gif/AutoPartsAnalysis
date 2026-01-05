@@ -18,8 +18,9 @@ st.markdown("Interactive analysis of automotive parts inventory and pricing")
 def load_data():
     data_file = Path("auto_parts_data.xlsx")
     if not data_file.exists():
-        st.error("Data file not found! Please run 'python generate_data.py' first.")
-        st.stop()
+        st.info("Generating sample data...")
+        import subprocess
+        subprocess.run(["python", "generate_data.py"], check=True)
     return pd.read_excel(data_file)
 
 df = load_data()
