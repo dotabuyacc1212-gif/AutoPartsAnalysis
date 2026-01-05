@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from pathlib import Path
+import random
 
 st.set_page_config(
     page_title="Auto Parts Analysis",
@@ -19,9 +20,69 @@ def load_data():
     data_file = Path("auto_parts_data.xlsx")
     if not data_file.exists():
         st.info("Generating sample data...")
-        import subprocess
-        subprocess.run(["python", "generate_data.py"], check=True)
+        generate_sample_data()
     return pd.read_excel(data_file)
+
+def generate_sample_data():
+    """Generate sample auto parts data"""
+    import random
+    
+    NUM_PARTS = 500
+    
+    categories = [
+        "Engine Parts", "Brake System", "Suspension", "Electrical",
+        "Transmission", "Exhaust System", "Cooling System", "Fuel System"
+    ]
+    
+    manufacturers = [
+        "Bosch", "Denso", "Continental", "Delphi", "Valeo",
+        "Mahle", "NGK", "Brembo", "ZF", "Hella"
+    ]
+    
+    part_names = {
+        "Engine Parts": ["Piston", "Cylinder Head", "Camshaft", "Crankshaft", "Oil Pump"],
+        "Brake System": ["Brake Pad", "Brake Disc", "Brake Caliper", "Master Cylinder"],
+        "Suspension": ["Shock Absorber", "Coil Spring", "Control Arm", "Ball Joint"],
+        "Electrical": ["Alternator", "Starter Motor", "Battery", "Spark Plug"],
+        "Transmission": ["Clutch Kit", "Gearbox", "Drive Shaft", "CV Joint"],
+        "Exhaust System": ["Muffler", "Catalytic Converter", "Exhaust Manifold"],
+        "Cooling System": ["Radiator", "Water Pump", "Thermostat", "Cooling Fan"],
+        "Fuel System": ["Fuel Pump", "Fuel Injector", "Fuel Filter", "Throttle Body"]
+    }
+    
+    base_prices = {
+        "Engine Parts": (150, 800),
+        "Brake System": (50, 400),
+        "Suspension": (80, 500),
+        "Electrical": (40, 350),
+        "Transmission": (200, 1200),
+        "Exhaust System": (100, 600),
+        "Cooling System": (60, 400),
+        "Fuel System": (70, 450)
+    }
+    
+    data = []
+    for i in range(NUM_PARTS):
+        category = random.choice(categories)
+        part_name = random.choice(part_names[category])
+        manufacturer = random.choice(manufacturers)
+        price_range = base_prices[category]
+        price = round(random.uniform(price_range[0], price_range[1]), 2)
+        stock = random.randint(0, 100)
+        part_number = f"{manufacturer[:3].upper()}-{random.randint(1000, 9999)}"
+        
+        data.append({
+            "Part Number": part_number,
+            "Part Name": part_name,
+            "Category": category,
+            "Manufacturer": manufacturer,
+            "Price": price,
+            "Stock": stock,
+            "Status": "In Stock" if stock > 10 else "Low Stock" if stock > 0 else "Out of Stock"
+        })
+    
+    df = pd.DataFrame(data)
+    df.to_excel("auto_parts_data.xlsx", index=False, sheet_name="Auto Parts")
 
 df = load_data()
 
