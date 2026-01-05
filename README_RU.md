@@ -2,6 +2,8 @@
 
 Интерактивное веб-приложение для анализа данных об автомобильных запчастях, созданное с помощью Streamlit.
 
+🌐 **Демо:** [https://autopartsanalysis.streamlit.app/](https://autopartsanalysis.streamlit.app/)
+
 [English version](README.md)
 
 ## Возможности

@@ -2,6 +2,8 @@
 
 Interactive web application for analyzing automotive parts data, built with Streamlit.
 
+🌐 **Live Demo:** [https://autopartsanalysis.streamlit.app/](https://autopartsanalysis.streamlit.app/)
+
 [Русская версия](README_RU.md)
 
 ## Features
