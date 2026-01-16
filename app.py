@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 from pathlib import Path
 
 st.set_page_config(
-    page_title="Auto Parts Analysis",
+    page_title="Auto-Parts Analysis",
     page_icon="🚗",
     layout="wide"
 )
